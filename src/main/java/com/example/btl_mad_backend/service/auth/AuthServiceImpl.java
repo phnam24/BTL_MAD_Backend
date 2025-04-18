@@ -1,5 +1,6 @@
 package com.example.btl_mad_backend.service.auth;
 
+import com.example.btl_mad_backend.config.RandomStringGenerator;
 import com.example.btl_mad_backend.dto.auth.AuthRequestDto;
 import com.example.btl_mad_backend.dto.auth.AuthResponseDto;
 import com.example.btl_mad_backend.dto.auth.RegisterRequestDto;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,6 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final HttpSession session;
     private final PasswordEncoder passwordEncoder;
+//    private final RandomStringGenerator randomStringGenerator;
 
     @Override
     public AuthResponseDto login(AuthRequestDto authRequestDto, Role role) {
@@ -37,7 +41,9 @@ public class AuthServiceImpl implements AuthService {
         }
 
         session.setAttribute("user", user);
-        return new AuthResponseDto(user.getEmail(), user.getName(), user.getRole());
+        String token = UUID.randomUUID().toString();
+        session.setAttribute("token", token);
+        return new AuthResponseDto(user.getEmail(), user.getName(), user.getRole(), token);
     }
 
     @Override

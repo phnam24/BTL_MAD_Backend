@@ -20,14 +20,12 @@ public class MultipleChoiceAnswerController {
     private final MultipleChoiceAnswerService answerService;
 
     @GetMapping("/question/{questionId}")
-    public ResponseEntity<ApiResponse<List<MultipleChoiceAnswerDTO>>> getAnswersByQuestionId(@PathVariable Long questionId) {
+    public ApiResponse<List<MultipleChoiceAnswerDTO>> getAnswersByQuestionId(@PathVariable Long questionId) {
         List<MultipleChoiceAnswerDTO> answers = answerService.getAnswersByQuestionId(questionId);
-        return ResponseEntity.ok(
-                ApiResponse.<List<MultipleChoiceAnswerDTO>>builder()
+        return ApiResponse.<List<MultipleChoiceAnswerDTO>>builder()
                         .code(200)
                         .message("Answers fetched successfully")
                         .result(answers)
-                        .build()
-        );
+                        .build();
     }
 }

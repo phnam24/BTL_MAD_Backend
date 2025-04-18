@@ -18,26 +18,26 @@ public class SubmissionController {
     private final SubmissionService submissionService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<SubmissionDTO>> create(@RequestBody SubmissionDTO dto) {
-        return ResponseEntity.ok(ApiResponse.<SubmissionDTO>builder()
+    public ApiResponse<SubmissionDTO> create(@RequestBody SubmissionDTO dto) {
+        return ApiResponse.<SubmissionDTO>builder()
                 .message("Created successfully")
                 .result(submissionService.createSubmission(dto))
-                .build());
+                .build();
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<SubmissionDTO>>> getAll() {
-        return ResponseEntity.ok(ApiResponse.<List<SubmissionDTO>>builder()
+    public ApiResponse<List<SubmissionDTO>> getAll() {
+        return ApiResponse.<List<SubmissionDTO>>builder()
                 .message("Fetched all submissions")
                 .result(submissionService.getAllSubmissions())
-                .build());
+                .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<SubmissionDTO>> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.<SubmissionDTO>builder()
+    public ApiResponse<SubmissionDTO> getById(@PathVariable Long id) {
+        return ApiResponse.<SubmissionDTO>builder()
                 .message("Fetched submission")
                 .result(submissionService.getSubmissionById(id))
-                .build());
+                .build();
     }
 }

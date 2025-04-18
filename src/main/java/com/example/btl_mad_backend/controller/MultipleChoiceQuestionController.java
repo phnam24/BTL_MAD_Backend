@@ -19,66 +19,60 @@ public class MultipleChoiceQuestionController {
     private final MultipleChoiceQuestionService service;
 
     @GetMapping("/exercise/{exerciseId}")
-    public ResponseEntity<ApiResponse<List<MultipleChoiceQuestionDTO>>> getByExercise(@PathVariable Long exerciseId) {
+    public ApiResponse<List<MultipleChoiceQuestionDTO>> getByExercise(@PathVariable Long exerciseId) {
         List<MultipleChoiceQuestionDTO> questions = service.getAllByExercise(exerciseId);
-        return ResponseEntity.ok(
+        return 
                 ApiResponse.<List<MultipleChoiceQuestionDTO>>builder()
                         .code(200)
                         .message("Questions fetched successfully")
                         .result(questions)
-                        .build()
-        );
+                        .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<MultipleChoiceQuestionDTO>> getById(@PathVariable Long id) {
+    public ApiResponse<MultipleChoiceQuestionDTO> getById(@PathVariable Long id) {
         MultipleChoiceQuestionDTO question = service.getById(id);
-        return ResponseEntity.ok(
+        return 
                 ApiResponse.<MultipleChoiceQuestionDTO>builder()
                         .code(200)
                         .message("Question fetched successfully")
                         .result(question)
-                        .build()
-        );
+                        .build();
     }
 
     @PostMapping("/exercise/{exerciseId}")
-    public ResponseEntity<ApiResponse<MultipleChoiceQuestionDTO>> create(
+    public ApiResponse<MultipleChoiceQuestionDTO> create(
             @PathVariable Long exerciseId,
             @RequestBody MultipleChoiceQuestionDTO dto) {
         MultipleChoiceQuestionDTO created = service.create(exerciseId, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                ApiResponse.<MultipleChoiceQuestionDTO>builder()
+        return ApiResponse.<MultipleChoiceQuestionDTO>builder()
                         .code(201)
                         .message("Question created successfully")
                         .result(created)
-                        .build()
-        );
+                        .build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<MultipleChoiceQuestionDTO>> update(
+    public ApiResponse<MultipleChoiceQuestionDTO> update(
             @PathVariable Long id,
             @RequestBody MultipleChoiceQuestionDTO dto) {
         MultipleChoiceQuestionDTO updated = service.update(id, dto);
-        return ResponseEntity.ok(
+        return 
                 ApiResponse.<MultipleChoiceQuestionDTO>builder()
                         .code(200)
                         .message("Question updated successfully")
                         .result(updated)
-                        .build()
-        );
+                        .build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok(
+        return 
                 ApiResponse.<Void>builder()
                         .code(200)
                         .message("Question deleted successfully")
                         .result(null)
-                        .build()
-        );
+                        .build();
     }
 }

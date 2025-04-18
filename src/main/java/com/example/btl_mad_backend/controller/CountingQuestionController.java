@@ -18,26 +18,22 @@ public class CountingQuestionController {
     private final CountingQuestionService questionService;
 
     @GetMapping("/exercise/{exerciseId}")
-    public ResponseEntity<ApiResponse<List<CountingQuestionDTO>>> getByExerciseId(@PathVariable Long exerciseId) {
+    public ApiResponse<List<CountingQuestionDTO>> getByExerciseId(@PathVariable Long exerciseId) {
         List<CountingQuestionDTO> questions = questionService.getByExerciseId(exerciseId);
-        return ResponseEntity.ok(
-                ApiResponse.<List<CountingQuestionDTO>>builder()
+        return ApiResponse.<List<CountingQuestionDTO>>builder()
                         .code(200)
                         .message("Get counting questions successfully")
                         .result(questions)
-                        .build()
-        );
+                        .build();
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CountingQuestionDTO>> create(@RequestBody CountingQuestionCreateDTO dto) {
+    public ApiResponse<CountingQuestionDTO> create(@RequestBody CountingQuestionCreateDTO dto) {
         CountingQuestionDTO created = questionService.create(dto);
-        return ResponseEntity.ok(
-                ApiResponse.<CountingQuestionDTO>builder()
+        return ApiResponse.<CountingQuestionDTO>builder()
                         .code(200)
                         .message("Created counting question successfully")
                         .result(created)
-                        .build()
-        );
+                        .build();
     }
 }

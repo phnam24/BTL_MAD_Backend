@@ -18,18 +18,18 @@ public class StudentAnswerController {
     private final StudentAnswerService studentAnswerService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<StudentAnswerDTO>> create(@RequestBody StudentAnswerDTO dto) {
-        return ResponseEntity.ok(ApiResponse.<StudentAnswerDTO>builder()
+    public ApiResponse<StudentAnswerDTO> create(@RequestBody StudentAnswerDTO dto) {
+        return ApiResponse.<StudentAnswerDTO>builder()
                 .message("Answer saved")
                 .result(studentAnswerService.createStudentAnswer(dto))
-                .build());
+                .build();
     }
 
     @GetMapping("/submission/{submissionId}")
-    public ResponseEntity<ApiResponse<List<StudentAnswerDTO>>> getBySubmission(@PathVariable Long submissionId) {
-        return ResponseEntity.ok(ApiResponse.<List<StudentAnswerDTO>>builder()
+    public ApiResponse<List<StudentAnswerDTO>> getBySubmission(@PathVariable Long submissionId) {
+        return ApiResponse.<List<StudentAnswerDTO>>builder()
                 .message("Answers by submission")
                 .result(studentAnswerService.getAnswersBySubmissionId(submissionId))
-                .build());
+                .build();
     }
 }

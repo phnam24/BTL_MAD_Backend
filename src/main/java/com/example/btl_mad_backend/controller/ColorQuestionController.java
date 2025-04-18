@@ -17,53 +17,43 @@ public class ColorQuestionController {
     private final ColorQuestionService service;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<ColorQuestionDTO>>> getAll() {
-        return ResponseEntity.ok(
-                ApiResponse.<List<ColorQuestionDTO>>builder()
+    public ApiResponse<List<ColorQuestionDTO>> getAll() {
+        return ApiResponse.<List<ColorQuestionDTO>>builder()
                         .message("Fetched all successfully")
                         .result(service.getAll())
-                        .build()
-        );
+                        .build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<ColorQuestionDTO>> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(
-                ApiResponse.<ColorQuestionDTO>builder()
+    public ApiResponse<ColorQuestionDTO> getById(@PathVariable Long id) {
+        return ApiResponse.<ColorQuestionDTO>builder()
                         .message("Fetched successfully")
                         .result(service.getById(id))
-                        .build()
-        );
+                        .build();
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ColorQuestionDTO>> create(@RequestBody ColorQuestionDTO dto) {
-        return ResponseEntity.ok(
-                ApiResponse.<ColorQuestionDTO>builder()
+    public ApiResponse<ColorQuestionDTO> create(@RequestBody ColorQuestionDTO dto) {
+        return ApiResponse.<ColorQuestionDTO>builder()
                         .message("Created successfully")
                         .result(service.create(dto))
-                        .build()
-        );
+                        .build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ColorQuestionDTO>> update(@PathVariable Long id,
+    public ApiResponse<ColorQuestionDTO> update(@PathVariable Long id,
                                                                 @RequestBody ColorQuestionDTO dto) {
-        return ResponseEntity.ok(
-                ApiResponse.<ColorQuestionDTO>builder()
+        return ApiResponse.<ColorQuestionDTO>builder()
                         .message("Updated successfully")
                         .result(service.update(id, dto))
-                        .build()
-        );
+                        .build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Long id) {
         service.delete(id);
-        return ResponseEntity.ok(
-                ApiResponse.<Void>builder()
+        return ApiResponse.<Void>builder()
                         .message("Deleted successfully")
-                        .build()
-        );
+                        .build();
     }
 }

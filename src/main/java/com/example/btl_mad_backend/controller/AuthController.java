@@ -4,6 +4,7 @@ import com.example.btl_mad_backend.dto.ApiResponse;
 import com.example.btl_mad_backend.dto.auth.AuthRequestDto;
 import com.example.btl_mad_backend.dto.auth.AuthResponseDto;
 import com.example.btl_mad_backend.dto.auth.RegisterRequestDto;
+import com.example.btl_mad_backend.entity.Role;
 import com.example.btl_mad_backend.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    private ApiResponse<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto authRequestDto) {
+    private ApiResponse<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto authRequestDto, @RequestParam Role role) {
         return ApiResponse.<AuthResponseDto>builder()
-                .result(authService.login(authRequestDto))
+                .result(authService.login(authRequestDto, role))
                 .build();
     }
 

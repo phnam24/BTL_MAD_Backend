@@ -24,13 +24,18 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public AuthResponseDto login(AuthRequestDto authRequestDto) {
+    public AuthResponseDto login(AuthRequestDto authRequestDto, Role role) {
         User user = userRepository.findByEmail(authRequestDto.getEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         if (!passwordEncoder.matches(authRequestDto.getPassword(), user.getPasswordHash())) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
+
+        if (!user.getRole().equals(role)) {
+            throw new AppException(ErrorCode.UNAUTHORIZED);
+        }
+
         session.setAttribute("user", user);
         return new AuthResponseDto(user.getEmail(), user.getName(), user.getRole());
     }
@@ -49,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
             throw new AppException(ErrorCode.MISSING_POSITION);
         }
         if (user.getRole().equals(Role.student)) {
-            if (registerRequestDto.getGrade()==null) {
+            if (registerRequestDto.getGrade()==0) {
                 throw new AppException(ErrorCode.MISSING_GRADE);
             }
             Student student = new Student(user, registerRequestDto.getGrade());

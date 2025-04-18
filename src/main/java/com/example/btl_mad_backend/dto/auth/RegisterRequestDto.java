@@ -26,5 +26,5 @@ public class RegisterRequestDto {
     @NotBlank
     private Role role;  // "student" hoặc "teacher"
 
-    private String grade; // Chỉ có nếu role là "student"
+    private int grade; // Chỉ có nếu role là "student"
 }

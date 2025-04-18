@@ -13,7 +13,7 @@ public class UserProfileResponseDto {
     private String email;
     private String name;
     private Role role;
-    private String grade;
+    private int grade;
     private Integer score;
 
     public UserProfileResponseDto(Long id, String email, String name, Role role) {

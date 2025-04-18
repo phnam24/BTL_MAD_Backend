@@ -1,10 +1,7 @@
 package com.example.btl_mad_backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -20,7 +17,7 @@ public class Student {
     private User user;
 
     @Column(length = 50)
-    private String grade;
+    private int grade;
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private int score;
@@ -28,7 +25,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(User user, String grade) {
+    public Student(User user, int grade) {
         this.user = user;
         this.grade = grade;
         this.score = 0;
